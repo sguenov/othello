@@ -47,7 +47,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
     int maxScore = 0;
-    Move currentbest = *(new Move(6,4));
+    Move * currentbest = (new Move(6,4));
     int score = 0;
     std::cerr << "moving" << std::endl;
     //while(msLeft > 0){
@@ -74,7 +74,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                 }
                 if(score > maxScore){
                     maxScore = score;
-                    currentbest = move;
+                    currentbest = &move;
                     std::cerr << "move picked" << std::endl;
                 }
 
@@ -83,7 +83,10 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 
     //}
     std::cerr << maxScore << std::endl;
-    bord->doMove(&currentbest, ourSide);
+    std::cerr << currentbest->getX() << std::endl;
+    std::cerr << currentbest->getY() << std::endl;
+    std::cerr << "check valid" << bord->checkMove(currentbest, ourSide) << std::endl;
+    //bord->doMove(&currentbest, ourSide);
     //delete currentbest;
-    return nullptr;
+    return currentbest;
 }
