@@ -1,5 +1,4 @@
 #include "player.hpp"
-
 /*
  * Constructor for the player; initialize everything here. The side your AI is
  * on (BLACK or WHITE) is passed in as "side". The constructor must finish
@@ -60,20 +59,20 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     //while(msLeft > 0){
         for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            score = 0;
             Move * current =  new Move(i,j);
+            score = calcScore(bord, current, ourSide);
             if (bord->checkMove(current, ourSide)){
                 if((i == 0 or i == 7) and (j == 0 or j == 7)){
                     score += 3;
                 }
                 else if((i == 0 or i == 7)  or (j == 0 or j == 7)){
-                    score += 2;
+                    score += 0;
                 }
                 else if((i == 1 or i == 6)  and (j == 1 or j == 6)){
                     score -= 3;
                 }
                 else if((i == 1 or i == 6)  or (j == 1 or j == 6)){
-                    score -= 2;
+                    score -= 0;
                 }
                 else{
                     std::cerr << "yyy" << std::endl;
@@ -101,4 +100,10 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     bord->doMove(currentbest, ourSide);
     //delete currentbest;
     return currentbest;}
+}
+int Player::calcScore(Board * b, Move *m, Side side){
+    Board * board = b->copy();
+    board->doMove(m, side);
+    int sc = board->count(side);
+    return sc;
 }
