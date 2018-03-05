@@ -8,6 +8,9 @@
 Player::Player(Side side) {
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
+    bord = new Board();
+    ourSide = side;
+    std::cerr << "blah" << std::endl;
 	//hi this is to commit
     /*
      * TODO: Do any initialization you need to do here (setting up the board,
@@ -20,6 +23,7 @@ Player::Player(Side side) {
  * Destructor for the player.
  */
 Player::~Player() {
+    delete bord;
 }
 
 /*
@@ -40,5 +44,44 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */
+    int maxScore = 0;
+    Move currentbest = *(new Move(6,4));
+    int score = 0;
+    std::cerr << "moving" << std::endl;
+    //while(msLeft > 0){
+        for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            score = 0;
+            Move move(i, j);
+            if (bord->checkMove(&move, ourSide)){
+                if((i == 0 or i == 7) and (j == 0 or j == 7)){
+                    score += 3;
+                }
+                else if((i == 0 or i == 7)  or (j == 0 or j == 7)){
+                    score += 2;
+                }
+                else if((i == 1 or i == 6)  and (j == 1 or j == 6)){
+                    score -= 3;
+                }
+                else if((i == 1 or i == 6)  or (j == 1 or j == 6)){
+                    score -= 2;
+                }
+                else{
+                    std::cerr << "yyy" << std::endl;
+                    score += 1;
+                }
+                if(score > maxScore){
+                    maxScore = score;
+                    currentbest = move;
+                    std::cerr << "move picked" << std::endl;
+                }
+
+            }
+            }}
+
+    //}
+    std::cerr << maxScore << std::endl;
+    bord->doMove(&currentbest, ourSide);
+    //delete currentbest;
     return nullptr;
 }
