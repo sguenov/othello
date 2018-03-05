@@ -10,6 +10,12 @@ Player::Player(Side side) {
     testingMinimax = false;
     bord = new Board();
     ourSide = side;
+    if(ourSide == WHITE){
+        otherSide = BLACK;
+    }
+    if(ourSide == BLACK){
+        otherSide = WHITE;
+    }
     std::cerr << "blah" << std::endl;
 	//hi this is to commit
     /*
@@ -46,16 +52,17 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * TODO: Implement how moves your AI should play here. You should first
      * process the opponent's opponents move before calculating your own move
      */
+    bord->doMove(opponentsMove, otherSide);
     int maxScore = 0;
-    Move * currentbest = (new Move(6,4));
+    Move * currentbest = nullptr;
     int score = 0;
     std::cerr << "moving" << std::endl;
     //while(msLeft > 0){
         for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             score = 0;
-            Move move(i, j);
-            if (bord->checkMove(&move, ourSide)){
+            Move * current =  new Move(i,j);
+            if (bord->checkMove(current, ourSide)){
                 if((i == 0 or i == 7) and (j == 0 or j == 7)){
                     score += 3;
                 }
@@ -74,19 +81,24 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                 }
                 if(score > maxScore){
                     maxScore = score;
-                    currentbest = &move;
+                    currentbest = current;
                     std::cerr << "move picked" << std::endl;
                 }
 
             }
+            //delete current;
             }}
 
     //}
+    if(currentbest == nullptr){
+        return nullptr;
+    }
+    else{
     std::cerr << maxScore << std::endl;
     std::cerr << currentbest->getX() << std::endl;
     std::cerr << currentbest->getY() << std::endl;
     std::cerr << "check valid" << bord->checkMove(currentbest, ourSide) << std::endl;
-    //bord->doMove(&currentbest, ourSide);
+    bord->doMove(currentbest, ourSide);
     //delete currentbest;
-    return currentbest;
+    return currentbest;}
 }
