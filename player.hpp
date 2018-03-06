@@ -16,6 +16,7 @@ public:
     Move *doMove(Move *opponentsMove, int msLeft);
     double calcScore(Board * b, Move *m, Side side);
     double calcOtherScore(Board * b, Move *m, Side side);
+    void setBoard(char data[]);
     // Flag to tell if the player is running within the test_minimax context
     bool testingMinimax;
     Side ourSide;

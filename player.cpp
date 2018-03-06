@@ -34,6 +34,10 @@ Player::~Player() {
     delete bord;
 
 }
+void Player::setBoard(char data[]){
+    
+    bord->setBoard(data);
+}
 
 /*
  * Compute the next move given the opponent's last move. Your AI is
