@@ -104,6 +104,7 @@ double Player::calcScore(Board * b, Move *m, Side side){
     Board * board = b->copy();
     board->doMove(m, side);
     double sc = board->count(side);
+    if(!testingMinimax){
     if((i == 0 or i == 7) and (j == 0 or j == 7)){
         sc += 3;
     }
@@ -115,7 +116,7 @@ double Player::calcScore(Board * b, Move *m, Side side){
     }
     else if((i == 1 or i == 6)  or (j == 1 or j == 6)){
         sc -= 1.5;
-    }
+    }}
     return sc;
 }
 
