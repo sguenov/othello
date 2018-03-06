@@ -1,11 +1,14 @@
 // minimax function
 // takes in board, returns optimal next move
 
-Move *Player::minimax(Board * b) {
+Move *Player::minimax(Board * b, int msleft) {
 	Move * go = nullptr;
 	double max = -999999.0;
 	for (int i = 0; i < 8; i++) {
 	for (int j = 0; j < 8; j++) {
+		if(msleft < 3000){
+					break;
+				}
 		Move * test = new Move(i, j);
 		
 		// for every one of our possible moves
@@ -17,6 +20,7 @@ Move *Player::minimax(Board * b) {
 			
 			for (int m = 0; m < 8; m++) {
 			for (int n = 0; n < 8; n++) {
+				
 				Move * test2 = new Move(m, n);
 				// then for every one of opponent's next possible moves
 				if (b2->checkMove(test2, otherSide)) {
@@ -24,11 +28,9 @@ Move *Player::minimax(Board * b) {
 					double ourScore = calcOtherScore(b2, test2, otherSide);
 					double otherScore = calcScore(b2, test2, otherSide);
 					double score = ourScore - otherScore;
-					std::cerr << "scores clear" << std::endl;
 					// find the minimum score of the branch
 					if (score < min) {
 						min = score;
-						std::cerr << "set" <<std::endl;
 					}
 				}
 			}
@@ -39,7 +41,7 @@ Move *Player::minimax(Board * b) {
 			if (min > max) {
 				max = min;
 				go = test;
-				std::cerr << "best" <<std::endl;
+
 			}
 		}
 	}

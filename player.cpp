@@ -17,7 +17,6 @@ Player::Player(Side side) {
     if(ourSide == BLACK){
         otherSide = WHITE;
     }
-    std::cerr << "blah" << std::endl;
 	//hi this is to commit
     /*
      * TODO: Do any initialization you need to do here (setting up the board,
@@ -58,8 +57,8 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
     bord->doMove(opponentsMove, otherSide);
-    Move *next = minimax(bord);
-    std::cerr << "moving to coordinate (" << next->x << ", " << next->y << ")" << endl;
+    Move *next = minimax(bord, msLeft - 300);
+    //std::cerr << "moving to coordinate (" << next->x << ", " << next->y << ")" << endl;
     if(next== nullptr){
         std::cerr << "why oh why" << std::endl;
     }
@@ -67,10 +66,9 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
         std::cerr << "bad move" << std::endl;
     }
     bord->doMove(next, ourSide);
-    std::cerr << "moved" << endl;
+    
     
     return next;
-    //dsfs
     /*
     double maxScore = 0;
     Move * currentbest = nullptr;
@@ -137,8 +135,6 @@ double Player::calcScore(Board * b, Move *m, Side side){
 double Player::calcOtherScore(Board * b, Move *m, Side side){
     if(m == nullptr)
         return -999999.9;
-    int i = m->getX();
-    int j = m->getY();
     if(side == WHITE){
         Side otherSide = BLACK;
     }
