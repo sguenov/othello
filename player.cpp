@@ -60,8 +60,15 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     bord->doMove(opponentsMove, otherSide);
     Move *next = minimax(bord);
     std::cerr << "moving to coordinate (" << next->x << ", " << next->y << ")" << endl;
+    if(next== nullptr){
+        std::cerr << "why oh why" << std::endl;
+    }
+    if(!(bord->checkMove(next, ourSide))){
+        std::cerr << "bad move" << std::endl;
+    }
     bord->doMove(next, ourSide);
     std::cerr << "moved" << endl;
+    
     return next;
     //dsfs
     /*
