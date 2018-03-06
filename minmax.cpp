@@ -21,11 +21,9 @@ Move *Player::minimax(Board * b) {
 				// then for every one of opponent's next possible moves
 				if (b2->checkMove(test2, otherSide)) {
 					// hypothetically do the move
-					Board * b3 = b2->copy();
-					b3->doMove(test2, otherSide);
-					// check our final score after opponent's move
-					double score = calcScore(b3, nullptr, ourSide) - 
-					calcScore(b3, nullptr, otherSide);
+					double ourScore = calcOtherScore(b2, test2, otherSide);
+					double otherScore = calcScore(b2, test2, otherSide);
+					double score = ourScore - otherScore;
 					// find the minimum score of the branch
 					if (score < min) {
 						min = score;
