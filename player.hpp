@@ -2,8 +2,9 @@
 #define __PLAYER_H__
 
 #include <iostream>
-#include "common.hpp"
+//#include "common.hpp"
 #include "board.hpp"
+
 using namespace std;
 
 class Player {
