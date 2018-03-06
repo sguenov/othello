@@ -1,5 +1,6 @@
 #include "player.hpp"
 #include "score.cpp"
+#include "minmax.cpp"
 /*
  * Constructor for the player; initialize everything here. The side your AI is
  * on (BLACK or WHITE) is passed in as "side". The constructor must finish
@@ -53,6 +54,12 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
     bord->doMove(opponentsMove, otherSide);
+    Move *next = minimax(bord);
+    std::cerr << "moving to coordinate (" << next->x << ", " << next->y << ")" << endl;
+    bord->doMove(next, ourSide);
+    std::cerr << "moved" << endl;
+    return next;
+    /*
     double maxScore = 0;
     Move * currentbest = nullptr;
     double score = 0;
@@ -86,6 +93,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     bord->doMove(currentbest, ourSide);
     //delete currentbest;
     return currentbest;}
+    */
 }
 double Player::calcScore(Board * b, Move *m, Side side){
     int i = m->getX();
