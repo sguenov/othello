@@ -53,32 +53,17 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
     bord->doMove(opponentsMove, otherSide);
-    int maxScore = 0;
+    double maxScore = 0;
     Move * currentbest = nullptr;
-    int score = 0;
+    double score = 0;
     std::cerr << "moving" << std::endl;
     //while(msLeft > 0){
         for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             Move * current =  new Move(i,j);
-            score = calcScore(bord, current, ourSide);
+            
             if (bord->checkMove(current, ourSide)){
-                if((i == 0 or i == 7) and (j == 0 or j == 7)){
-                    score += 3;
-                }
-                else if((i == 0 or i == 7)  or (j == 0 or j == 7)){
-                    score += 0;
-                }
-                else if((i == 1 or i == 6)  and (j == 1 or j == 6)){
-                    score -= 3;
-                }
-                else if((i == 1 or i == 6)  or (j == 1 or j == 6)){
-                    score -= 0;
-                }
-                else{
-                    std::cerr << "yyy" << std::endl;
-                    score += 1;
-                }
+                score = calcScore(bord, current, ourSide);
                 if(score > maxScore){
                     maxScore = score;
                     currentbest = current;
@@ -102,9 +87,25 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     //delete currentbest;
     return currentbest;}
 }
-int Player::calcScore(Board * b, Move *m, Side side){
+double Player::calcScore(Board * b, Move *m, Side side){
+    int i = m->getX();
+    int j = m->getY();
+    
+                
     Board * board = b->copy();
     board->doMove(m, side);
-    int sc = board->count(side);
+    double sc = board->count(side);
+    if((i == 0 or i == 7) and (j == 0 or j == 7)){
+        sc += 3;
+    }
+    else if((i == 0 or i == 7) or (j == 0 or j == 7)){
+        sc += 1.5;
+    }            
+    else if((i == 1 or i == 6)  and (j == 1 or j == 6)){
+        sc -= 3;
+    }
+    else if((i == 1 or i == 6)  or (j == 1 or j == 6)){
+        sc -= 1.5;
+    }
     return sc;
 }
