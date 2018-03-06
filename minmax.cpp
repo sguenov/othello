@@ -2,8 +2,8 @@
 // takes in board, returns optimal next move
 
 Move *Player::minimax(Board * b) {
-	Move * go = new Move(0, 0);
-	int max = -999999;
+	Move * go = nullptr;
+	double max = -999999.0;
 	for (int i = 0; i < 8; i++) {
 	for (int j = 0; j < 8; j++) {
 		Move * test = new Move(i, j);
@@ -13,7 +13,7 @@ Move *Player::minimax(Board * b) {
 			// hypothetically do the move
 			Board * b2 = b->copy();
 			b2->doMove(test, ourSide);
-			int min = 999999;
+			double min = 999999.0;
 			
 			for (int m = 0; m < 8; m++) {
 			for (int n = 0; n < 8; n++) {
@@ -24,7 +24,8 @@ Move *Player::minimax(Board * b) {
 					Board * b3 = b2->copy();
 					b3->doMove(test2, otherSide);
 					// check our final score after opponent's move
-					int score = b3->count(ourSide) - b3->count(otherSide);
+					double score = calcScore(b3, nullptr, ourSide) - 
+					calcScore(b3, nullptr, otherSide);
 					// find the minimum score of the branch
 					if (score < min) {
 						min = score;
@@ -37,8 +38,7 @@ Move *Player::minimax(Board * b) {
 			// this is the move we want
 			if (min > max) {
 				max = min;
-				go->x = i;
-				go->y = j;
+				go = test;
 			}
 		}
 	}
