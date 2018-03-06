@@ -102,7 +102,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
 }
 double Player::calcScore(Board * b, Move *m, Side side){
     if(m == nullptr)
-        return;
+        return -999999.9;
     int i = m->getX();
     int j = m->getY();
     
@@ -128,7 +128,7 @@ double Player::calcScore(Board * b, Move *m, Side side){
 
 double Player::calcOtherScore(Board * b, Move *m, Side side){
     if(m == nullptr)
-        return;
+        return -999999.9;
     int i = m->getX();
     int j = m->getY();
     if(side == WHITE){
