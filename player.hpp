@@ -20,6 +20,7 @@ public:
     Side ourSide;
     Side otherSide;
     Board *bord;
+    Move *minimax(Board * b);
 };
 
 #endif
