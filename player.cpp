@@ -63,6 +63,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     bord->doMove(next, ourSide);
     std::cerr << "moved" << endl;
     return next;
+    //dsfs
     /*
     double maxScore = 0;
     Move * currentbest = nullptr;

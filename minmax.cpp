@@ -24,9 +24,11 @@ Move *Player::minimax(Board * b) {
 					double ourScore = calcOtherScore(b2, test2, otherSide);
 					double otherScore = calcScore(b2, test2, otherSide);
 					double score = ourScore - otherScore;
+					std::cerr << "scores clear" << std::endl;
 					// find the minimum score of the branch
 					if (score < min) {
 						min = score;
+						std::cerr << "set" <<std::endl;
 					}
 				}
 			}
@@ -37,6 +39,7 @@ Move *Player::minimax(Board * b) {
 			if (min > max) {
 				max = min;
 				go = test;
+				std::cerr << "best" <<std::endl;
 			}
 		}
 	}
