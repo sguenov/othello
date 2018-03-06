@@ -84,6 +84,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     std::cerr << currentbest->getY() << std::endl;
     std::cerr << "check valid" << bord->checkMove(currentbest, ourSide) << std::endl;
     bord->doMove(currentbest, ourSide);
+
     //delete currentbest;
     return currentbest;}
 }
@@ -106,6 +107,33 @@ double Player::calcScore(Board * b, Move *m, Side side){
     }
     else if((i == 1 or i == 6)  or (j == 1 or j == 6)){
         sc -= 1.5;
+    }
+    return sc;
+}
+double Player::calcOtherScore(Board * b, Move *m, Side side){
+    int i = m->getX();
+    int j = m->getY();
+    if(side == WHITE){
+        Side otherSide = BLACK;
+    }
+    else{
+        Side otherSide = WHITE;
+    }
+                
+    Board * board = b->copy();
+    board->doMove(m, side);
+    double sc = board->count(otherSide);
+    if((i == 0 or i == 7) and (j == 0 or j == 7)){
+        sc -= 3;
+    }
+    else if((i == 0 or i == 7) or (j == 0 or j == 7)){
+        sc -= 1.5;
+    }            
+    else if((i == 1 or i == 6)  and (j == 1 or j == 6)){
+        sc += 3;
+    }
+    else if((i == 1 or i == 6)  or (j == 1 or j == 6)){
+        sc += 1.5;
     }
     return sc;
 }
