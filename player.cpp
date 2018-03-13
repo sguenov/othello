@@ -57,7 +57,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
      * process the opponent's opponents move before calculating your own move
      */
     bord->doMove(opponentsMove, otherSide);
-    Move *next = minimax(bord, msLeft - 300);
+    Move *next = (minimax(bord, msLeft - 300));
     //std::cerr << "moving to coordinate (" << next->x << ", " << next->y << ")" << endl;
     if(next== nullptr){
         std::cerr << "why oh why" << std::endl;

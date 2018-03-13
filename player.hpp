@@ -23,6 +23,7 @@ public:
     Side otherSide;
     Board *bord;
     Move *minimax(Board * b, int msLeft);
+    //ComplexMove * recurMove(Board * b, int msleft, int depthHalved, ComplexMove * mov, double prevScore);
 };
 
 #endif
